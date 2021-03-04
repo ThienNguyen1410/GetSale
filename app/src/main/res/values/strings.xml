@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GetSale</string>
+    <string name="search">search</string>
+    <string name="content_description_search">content_description_search</string>
+    <string name="more">more</string>
+    <string name="content_description_more">content_description_more</string>
+    <string name="search_product">What is name of product ?</string>
+    <string name="search_hint"><b>Product Name</b></string>
+</resources>

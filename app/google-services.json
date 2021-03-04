@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "104178223750",
+    "project_id": "ititun17022",
+    "storage_bucket": "ititun17022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104178223750:android:11baf0ede2c570fe525f07",
+        "android_client_info": {
+          "package_name": "com.thiennguyen.getsale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "104178223750-rfl9fac3ot9aripg17mf23md9olfdpt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB18ksKVW7aZ-HLxw7Pv8XTudZ79KZa5MY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "104178223750-rfl9fac3ot9aripg17mf23md9olfdpt7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
