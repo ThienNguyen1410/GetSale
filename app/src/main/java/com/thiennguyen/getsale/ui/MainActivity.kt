@@ -17,6 +17,8 @@ import androidx.core.content.getSystemService
 import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.thiennguyen.getsale.R
 import com.thiennguyen.getsale.adapter.MainPageRecyclerViewAdapter
 import com.thiennguyen.getsale.api.*
@@ -44,11 +46,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun createSearchDialog() {
         val builder = AlertDialog.Builder(this)
+        // Attach search_product layout to Alert Dialog
         val inputNameLayout = layoutInflater.inflate(R.layout.search_product,null)
+        // Use layout attached to call component
+        val editTextLayout = inputNameLayout.findViewById<TextInputLayout>(R.id.editTextLayout)
+        val buttonTest = inputNameLayout.findViewById<Button>(R.id.searchButton)
         builder.setView(inputNameLayout)
+        buttonTest.setOnClickListener {
+            var term = editTextLayout.editText?.text.toString()
+            searchApi(term)
+        }
         val dialog = builder.create()
         dialog.show()
         dialog.window?.setBackgroundDrawable(null)
+
     }
     @ExperimentalSerializationApi
     fun searchApi(searchTerm : String) {
@@ -80,22 +91,4 @@ class MainActivity : AppCompatActivity() {
              }
          })
      }
-    fun searchProduct() {
-        var searchContent = findViewById<EditText>(R.id.searchField)
-        var term = searchContent.text.toString()
-        println("Search Term : " + term)
-    }
-
-    private fun handleIntent(intent : Intent) {
-        if(Intent.ACTION_SEARCH == intent.action) {
-            val term = intent.getStringExtra(SearchManager.QUERY)
-            searchProduct()
-        }
-    }
-
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
-        handleIntent(intent)
-    }
 }
