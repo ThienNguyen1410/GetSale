@@ -1,27 +1,19 @@
 package com.thiennguyen.getsale.ui
 
-import android.app.SearchManager
-import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.getSystemService
-import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.thiennguyen.getsale.R
 import com.thiennguyen.getsale.adapter.MainPageRecyclerViewAdapter
 import com.thiennguyen.getsale.api.*
+import com.thiennguyen.getsale.data.TikiResults
 import com.thiennguyen.getsale.repo.SearchRepo
 import kotlinx.android.synthetic.main.main_page.*
 import kotlinx.android.synthetic.main.search_product.*
@@ -55,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         buttonTest.setOnClickListener {
             var term = editTextLayout.editText?.text.toString()
             searchApi(term)
+//            testApi(term)
+            hideProgressBar()
         }
         val dialog = builder.create()
         dialog.show()
@@ -65,15 +59,18 @@ class MainActivity : AppCompatActivity() {
     fun searchApi(searchTerm : String) {
         val apiService = ApiService.instance
         val apiRepo = SearchRepo(apiService)
-        apiRepo.searchProduct(searchTerm)
+        apiRepo.searchProduct(searchTerm) {
+            Log.i("Tiki Response","Tiki Results = $it" )
+        }
     }
      fun testApi(searchTerm : String) {
+         showProgressBar()
          val apiClient = ServiceBuilder.buildService(APIClient::class.java)
          val requestCall = apiClient.getTest(searchTerm)
-         requestCall.enqueue(object : Callback<TestData> {
+         requestCall.enqueue(object : Callback<TikiResults> {
              override fun onResponse(
-                 call: Call<TestData>,
-                 response: Response<TestData>
+                 call: Call<TikiResults>,
+                 response: Response<TikiResults>
              ) {
                  println("Successfully!!!!!!!!!")
                  if(response.isSuccessful) {
@@ -85,10 +82,17 @@ class MainActivity : AppCompatActivity() {
                      println("Failed , It not rep")
                  }
              }
-             override fun onFailure(call: Call<TestData>?, t: Throwable?) {
+             override fun onFailure(call: Call<TikiResults>?, t: Throwable?) {
                  Toast.makeText(this@MainActivity,"Error : " + t.toString(),Toast.LENGTH_LONG)
                  println("Error : " + t.toString())
              }
          })
      }
+    fun showProgressBar() {
+        indicator.visibility = View.VISIBLE
+    }
+
+    fun hideProgressBar() {
+        indicator.visibility = View.INVISIBLE
+    }
 }

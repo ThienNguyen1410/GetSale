@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit
 object ServiceBuilder {
     private const val URL = "https://get-sale.herokuapp.com/"
     private val okHttp = OkHttpClient.Builder()
-        .connectTimeout(30,TimeUnit.SECONDS)
-        .readTimeout(30,TimeUnit.SECONDS)
+        .connectTimeout(60,TimeUnit.SECONDS)
+        .readTimeout(60,TimeUnit.SECONDS)
     private val builder = Retrofit.Builder()
         .baseUrl(URL)
         .addConverterFactory(GsonConverterFactory.create())
